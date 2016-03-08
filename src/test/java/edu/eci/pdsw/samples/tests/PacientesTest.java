@@ -16,9 +16,14 @@
  */
 package edu.eci.pdsw.samples.tests;
 
+import edu.eci.pdsw.samples.entities.Paciente;
+import edu.eci.pdsw.samples.services.ExcepcionServiciosPacientes;
+import edu.eci.pdsw.samples.services.ServiciosPacientesStub;
+import java.sql.Date;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 
 /**
  *
@@ -34,9 +39,17 @@ public class PacientesTest {
     }
     
     @Test
-    public void registroPacienteTest(){
-        
-    }
-    
-    
+    /**
+     * Clases de equivalencia:
+     * 1-El paciente ya se encuentra registrado
+     * 2-El paciente no se encuentra registrado
+     */
+    public void registroPacienteTest() throws ExcepcionServiciosPacientes{
+            //Se esta haciendo el test de la clase de equivalencia 2
+            Paciente pac=new Paciente(1, "CC", "Eduardo", new Date(5,5,1995));
+            ServiciosPacientesStub a=new ServiciosPacientesStub();
+            a.registrarNuevoPaciente(pac);
+            Assert.assertEquals("El paciente se añadio correcamente",a.consultarPaciente(1, "CC").getNombre(),"Eduardo");
+        }
+           
 }
