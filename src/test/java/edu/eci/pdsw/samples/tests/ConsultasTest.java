@@ -16,10 +16,16 @@
  */
 package edu.eci.pdsw.samples.tests;
 
+import edu.eci.pdsw.samples.entities.Consulta;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
+import edu.eci.pdsw.samples.entities.Paciente;
+import edu.eci.pdsw.samples.services.ExcepcionServiciosPacientes;
+import edu.eci.pdsw.samples.services.ServiciosPacientesStub;
+import java.sql.Date;
+import java.util.Set;
+import org.junit.Assert;
 /**
  *
  * @author hcadavid
@@ -27,6 +33,8 @@ import static org.junit.Assert.*;
 public class ConsultasTest {
     
     public ConsultasTest() {
+        
+        
     }
     
     @Before
@@ -34,8 +42,30 @@ public class ConsultasTest {
     }
     
     @Test
+    /*
+    CLASES DE EQUIVALENCIA
+    
+    - Que el idPaciente y tipoId sean pertenecientes algun paciente existente.
+    - Que el idPaciente y tipoId no pertenezcan a algun paciente existente.
+    - Que el idPaciente y tipoId no concuerden con el mismo paciente.
+    
+    */
     public void registroPacienteTest(){
         
+        
+    }
+    
+    public void registroConsultas() throws ExcepcionServiciosPacientes{
+        /*
+        se implemento el test de la clase de equivalencia de la 1
+        */
+
+       Paciente pacient = new Paciente(1,"cc","Carlos",new Date(8,8,1994));
+       Consulta  consult = new Consulta(new Date (8,8,2012),"Paciente...");
+       ServiciosPacientesStub consul = new ServiciosPacientesStub();
+       consul.registrarNuevoPaciente(pacient);
+       consul.agregarConsultaAPaciente(1, "cc", consult);
+       Assert.assertEquals("El paciente si existe","Paciente...",consul.consultarPaciente(1, "cc").getConsultas().contains(consult));    
     }
     
     
