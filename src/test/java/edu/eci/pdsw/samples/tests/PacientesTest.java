@@ -49,7 +49,13 @@ public class PacientesTest {
             Paciente pac=new Paciente(1, "CC", "Eduardo", new Date(5,5,1995));
             ServiciosPacientesStub a=new ServiciosPacientesStub();
             a.registrarNuevoPaciente(pac);
-            Assert.assertEquals("El paciente se añadio correcamente",a.consultarPaciente(1, "CC").getNombre(),"Eduardo");
+            Assert.assertEquals("El paciente no se añadio correcamente",a.consultarPaciente(1, "CC").getNombre(),"Eduardo");
+        }
+    public void registroPacienteTest1() throws ExcepcionServiciosPacientes{
+            //Se esta haciendo el test de la clase de equivalencia 1
+            Paciente pac=new Paciente(1, "CC", "Eduardo", new Date(5,5,1995));
+            ServiciosPacientesStub a=new ServiciosPacientesStub();
+            Assert.assertEquals("El paciente no se añadio correcamente","Eduardo",a.consultarPaciente(1, "CC").getNombre());
         }
            
 }
