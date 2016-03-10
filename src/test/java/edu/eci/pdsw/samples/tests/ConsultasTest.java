@@ -91,5 +91,5 @@ public class ConsultasTest {
        consul.agregarConsultaAPaciente(2, "TL", consult);
        Assert.assertEquals("El IdPaciente y el tipoId no concuerda con el paciente","Paciente Andres",consul.consultarPaciente(2, "TI").getConsultas().contains(consult));
     
-    
+    }
 }
