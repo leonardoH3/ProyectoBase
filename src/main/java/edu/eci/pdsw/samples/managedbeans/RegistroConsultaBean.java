@@ -16,20 +16,82 @@
  */
 package edu.eci.pdsw.samples.managedbeans;
 
+import edu.eci.pdsw.samples.entities.Paciente;
+import edu.eci.pdsw.samples.services.ExcepcionServiciosPacientes;
 import edu.eci.pdsw.samples.services.ServiciosPacientes;
 import java.io.Serializable;
-import javax.annotation.ManagedBean;
-import javax.enterprise.context.SessionScoped;
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author hcadavid
  */
-@ManagedBean
+@ManagedBean(name="ConsultasBean")
 @SessionScoped
 public class RegistroConsultaBean implements Serializable{
+    ServiciosPacientes sp = ServiciosPacientes.getInstance();
+    Paciente paciente = null;
+    int id;
+    String tipoId;
+    String nombre;
+    Date fechaNacimiento;
     
-    ServiciosPacientes sp=ServiciosPacientes.getInstance();
     
-    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTipoId() {
+        return tipoId;
+    }
+
+    public void setTipoId(String tipoId) {
+        this.tipoId = tipoId;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(String fecha) {
+        String a;
+        String b;
+        String c;
+        String[] x=fecha.split("-");
+        a = x[0];b =x[1];c = x[2];
+        this.fechaNacimiento = new Date(Integer.parseInt(a),Integer.parseInt(b),Integer.parseInt(c));
+    }
+
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+    public void registrarPaciente() throws ExcepcionServiciosPacientes{
+        paciente= new Paciente(id, tipoId, nombre, fechaNacimiento);
+        sp.registrarNuevoPaciente(paciente);
+    }
+    public List<Paciente> getPacientes(){
+        return sp.getPacientes();
+    }
+   
 }

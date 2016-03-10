@@ -20,7 +20,9 @@ import edu.eci.pdsw.samples.entities.Consulta;
 import edu.eci.pdsw.samples.entities.Paciente;
 import java.sql.Date;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -30,64 +32,67 @@ import java.util.logging.Logger;
  *
  * @author hcadavid
  */
-public class ServiciosPacientesStub extends ServiciosPacientes{
+public class ServiciosPacientesStub extends ServiciosPacientes {
 
-    private final Map<Tupla<Integer,String>,Paciente> pacientes;
+    private final Map<Tupla<Integer, String>, Paciente> pacientes;
 
     public ServiciosPacientesStub() {
         this.pacientes = new LinkedHashMap<>();
         cargarDatosEstaticos(pacientes);
     }
-    
-    
+
     @Override
     public Paciente consultarPaciente(int idPaciente, String tipoid) throws ExcepcionServiciosPacientes {
-        Paciente p=pacientes.get(new Tupla<>(idPaciente,tipoid));
-        if (p==null){
-            throw new ExcepcionServiciosPacientes("Paciente "+idPaciente+" no esta registrado");
-        }
-        else{
+        Paciente p = pacientes.get(new Tupla<>(idPaciente, tipoid));
+        if (p == null) {
+            throw new ExcepcionServiciosPacientes("Paciente " + idPaciente + " no esta registrado");
+        } else {
             return p;
         }
-        
+
     }
 
     @Override
     public void registrarNuevoPaciente(Paciente p) throws ExcepcionServiciosPacientes {
-        pacientes.put(new Tupla<>(p.getId(),p.getTipo_id()), p);
+        pacientes.put(new Tupla<>(p.getId(), p.getTipo_id()), p);
     }
 
     @Override
     public void agregarConsultaAPaciente(int idPaciente, String tipoid, Consulta c) throws ExcepcionServiciosPacientes {
-        Paciente p=pacientes.get(new Tupla<>(idPaciente,tipoid));
-        if (p==null){
-            throw new ExcepcionServiciosPacientes("Paciente "+idPaciente+" no esta registrado");
-        }
-        else{
+        Paciente p = pacientes.get(new Tupla<>(idPaciente, tipoid));
+        if (p == null) {
+            throw new ExcepcionServiciosPacientes("Paciente " + idPaciente + " no esta registrado");
+        } else {
             p.getConsultas().add(c);
         }
     }
-    
 
-    private void cargarDatosEstaticos(Map<Tupla<Integer,String>,Paciente> pacientes){        
+    private void cargarDatosEstaticos(Map<Tupla<Integer, String>, Paciente> pacientes) {
         try {
             registrarNuevoPaciente(new Paciente(123, "CC", "Juan Perez", java.sql.Date.valueOf("2000-01-01")));
             registrarNuevoPaciente(new Paciente(321, "CC", "Maria Rodriguez", java.sql.Date.valueOf("2000-01-01")));
             registrarNuevoPaciente(new Paciente(875, "CC", "Pedro Martinez", java.sql.Date.valueOf("1956-05-01")));
-            
+
         } catch (ExcepcionServiciosPacientes ex) {
             Logger.getLogger(ServiciosPacientesStub.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }
-   
+
+    public List<Paciente> getPacientes() {
+        int i;
+        List<Paciente> a = null;
+        Iterator<Paciente> it = pacientes.values().iterator();
+        while(it.hasNext()){
+            a.add(it.next());
+        }
+        return a;
+    }
 
 }
 
+class Tupla<A, B> {
 
-class Tupla<A,B>{
-    
     A a;
     B b;
 
@@ -100,18 +105,15 @@ class Tupla<A,B>{
         return a;
     }
 
-
     public B getB() {
         return b;
     }
-
-
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 71 * hash + Objects.hashCode(this.a);
-        hash = 71 * hash + Objects.hashCode(this.b);        
+        hash = 71 * hash + Objects.hashCode(this.b);
         return hash;
     }
 
@@ -135,7 +137,5 @@ class Tupla<A,B>{
         }
         return true;
     }
-    
-    
-    
+
 }
