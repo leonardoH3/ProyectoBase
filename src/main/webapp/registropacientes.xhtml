@@ -8,18 +8,16 @@
         <br></br>
         <br></br>
         <h:form id="vistaPacientes">
-            Id:       <h:inputText value="#{RegistroConsultaBean.id}"/> <br></br>
-            Id type:  <h:inputText value="#{RegistroPacientesBean.tipoId}"/><br></br>
-            Name:     <h:inputText value="#{RegistroPacientesBean.nombre}"/><br></br>
-            Birthday: <h:inputText value="#{RegistroPacientesBean.fechaNacimiento}"/><br></br>
-            <p:commandButton value="Submit" update="vistaPacientes">
-                 <f:setPropertyActionListener target="#{RegistroPacientesBean.registrarPaciente}" />
-            </p:commandButton >
+            Id:       <h:inputText binding="#{input1}"/> <br></br>
+            Id type:  <h:inputText binding="#{input2}"/><br></br>
+            Name:     <h:inputText binding="#{input3}"/><br></br>
+            Birthday: <h:inputText binding="#{input4}"/><br></br>
+            <h:commandButton value="Submit" action="#{ConsultasBean.registrarPaciente(input1.value,input2.value,input3.value,input4.value)}" />
             <br></br>
             <br></br>
             <br></br>
             <p:dataTable var="paciente" value="#{ConsultasBean.pacientes}">
-                 <p:column headerText="Id"  sortBy="id">
+                 <p:column headerText="Id"  sortBy="paciente.id">
                      <h:outputText value="#{paciente.id}" />
                  </p:column>
                  <p:column headerText="Tipo Id">
@@ -31,12 +29,9 @@
                  <p:column headerText="Fecha de nacimiento">
                      <h:inputText value="#{paciente.fechaNacimiento}"  />
                  </p:column>
-                 <p:column>
-                    <p:commandButton value="Agregar consultas"> 
-                        <f:setPropertyActionListener value="#{pacientes}" target="#{beanCarritoCompras.produ}" />
-                    </p:commandButton >
-                 </p:column>
              </p:dataTable>
+            <p:commandButton value="Refresh" update="vistaPacientes"> 
+            </p:commandButton >
         </h:form>
     </h:body>
 

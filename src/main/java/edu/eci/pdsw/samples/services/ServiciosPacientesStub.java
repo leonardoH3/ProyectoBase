@@ -19,6 +19,7 @@ package edu.eci.pdsw.samples.services;
 import edu.eci.pdsw.samples.entities.Consulta;
 import edu.eci.pdsw.samples.entities.Paciente;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -81,10 +82,11 @@ public class ServiciosPacientesStub extends ServiciosPacientes {
 
     public List<Paciente> getPacientes() {
         int i;
-        List<Paciente> a = null;
-        Iterator<Paciente> it = pacientes.values().iterator();
-        while(it.hasNext()){
-            a.add(it.next());
+        List<Paciente> a = new ArrayList<Paciente>();
+        for (Map.Entry<Tupla<Integer, String>, Paciente> entrySet : pacientes.entrySet()) {
+            Tupla<Integer, String> key = entrySet.getKey();
+            Paciente value = entrySet.getValue();
+            a.add(value);
         }
         return a;
     }

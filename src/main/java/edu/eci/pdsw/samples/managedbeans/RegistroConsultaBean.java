@@ -34,40 +34,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class RegistroConsultaBean implements Serializable{
     ServiciosPacientes sp = ServiciosPacientes.getInstance();
-    Paciente paciente = null;
-    int id;
-    String tipoId;
-    String nombre;
     Date fechaNacimiento;
-    
-    
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTipoId() {
-        return tipoId;
-    }
-
-    public void setTipoId(String tipoId) {
-        this.tipoId = tipoId;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
 
     public void setFechaNacimiento(String fecha) {
         String a;
@@ -77,17 +44,12 @@ public class RegistroConsultaBean implements Serializable{
         a = x[0];b =x[1];c = x[2];
         this.fechaNacimiento = new Date(Integer.parseInt(a),Integer.parseInt(b),Integer.parseInt(c));
     }
-
-
-    public Paciente getPaciente() {
-        return paciente;
-    }
-
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
-    }
-    public void registrarPaciente() throws ExcepcionServiciosPacientes{
-        paciente= new Paciente(id, tipoId, nombre, fechaNacimiento);
+    public void registrarPaciente(String id, String tipoId, String nombre, String fecha) throws ExcepcionServiciosPacientes{
+        String a;String b;String c;
+        String[] x=fecha.split("-");
+        a = x[0];b =x[1];c = x[2];
+        String fechaReal=a + "-" + b + "-" + c;
+        Paciente paciente= new Paciente(Integer.parseInt(id), tipoId, nombre,java.sql.Date.valueOf(fechaReal));
         sp.registrarNuevoPaciente(paciente);
     }
     public List<Paciente> getPacientes(){
