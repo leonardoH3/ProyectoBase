@@ -68,5 +68,28 @@ public class ConsultasTest {
        Assert.assertEquals("El paciente si existe","Paciente...",consul.consultarPaciente(1, "cc").getConsultas().contains(consult));    
     }
     
+    public void registroConsultas1() throws ExcepcionServiciosPacientes{
+        /*
+        se implemento el test de la clase de equivalencia de la 2
+        */
+
+       Paciente pacient = new Paciente(2,"TI","Andres",new Date(10,10,2012));
+       Consulta  consult = new Consulta(new Date (10,10,12),"Paciente Andres");
+       ServiciosPacientesStub consul = new ServiciosPacientesStub();
+       consul.agregarConsultaAPaciente(2, "TL", consult);
+       Assert.assertEquals("El paciente no se encuentra  o no existe","Paciente Andres",consul.consultarPaciente(2, "TI").getConsultas().contains(consult));    
+    }
+    
+    public void registroConsultas2() throws ExcepcionServiciosPacientes{
+        /*
+        se implemento el test de la clase de equivalencia de la 3
+        */
+
+       Paciente pacient = new Paciente(2,"CC","Andres",new Date(10,10,2012));
+       Consulta  consult = new Consulta(new Date (10,10,12),"Paciente Andres");
+       ServiciosPacientesStub consul = new ServiciosPacientesStub();
+       consul.agregarConsultaAPaciente(2, "TL", consult);
+       Assert.assertEquals("El IdPaciente y el tipoId no concuerda con el paciente","Paciente Andres",consul.consultarPaciente(2, "TI").getConsultas().contains(consult));
+    
     
 }
