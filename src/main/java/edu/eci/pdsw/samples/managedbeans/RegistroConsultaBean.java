@@ -35,7 +35,7 @@ import javax.faces.bean.SessionScoped;
 public class RegistroConsultaBean implements Serializable{
     ServiciosPacientes sp = ServiciosPacientes.getInstance();
     Date fechaNacimiento;
-
+    List<Paciente> pacientes = sp.getPacientes();
     public void setFechaNacimiento(String fecha) {
         String a;
         String b;
@@ -51,9 +51,10 @@ public class RegistroConsultaBean implements Serializable{
         String fechaReal=a + "-" + b + "-" + c;
         Paciente paciente= new Paciente(Integer.parseInt(id), tipoId, nombre,java.sql.Date.valueOf(fechaReal));
         sp.registrarNuevoPaciente(paciente);
+        pacientes=sp.getPacientes();
     }
     public List<Paciente> getPacientes(){
-        return sp.getPacientes();
+        return pacientes;
     }
    
 }

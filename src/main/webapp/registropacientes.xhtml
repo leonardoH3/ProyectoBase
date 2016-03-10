@@ -17,7 +17,7 @@
             <br></br>
             <br></br>
             <p:dataTable var="paciente" value="#{ConsultasBean.pacientes}">
-                 <p:column headerText="Id"  sortBy="paciente.id">
+                 <p:column headerText="Id"  sortBy="#{paciente.id}">
                      <h:outputText value="#{paciente.id}" />
                  </p:column>
                  <p:column headerText="Tipo Id">
@@ -28,6 +28,10 @@
                  </p:column>
                  <p:column headerText="Fecha de nacimiento">
                      <h:inputText value="#{paciente.fechaNacimiento}"  />
+                 </p:column>
+                <p:column headerText="Cita">
+                     <p:commandButton value="Registrar cita"> 
+                     </p:commandButton >
                  </p:column>
              </p:dataTable>
             <p:commandButton value="Refresh" update="vistaPacientes"> 
