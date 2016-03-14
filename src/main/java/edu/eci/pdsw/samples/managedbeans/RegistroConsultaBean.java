@@ -16,14 +16,18 @@
  */
 package edu.eci.pdsw.samples.managedbeans;
 
+import edu.eci.pdsw.samples.entities.Consulta;
 import edu.eci.pdsw.samples.entities.Paciente;
 import edu.eci.pdsw.samples.services.ExcepcionServiciosPacientes;
 import edu.eci.pdsw.samples.services.ServiciosPacientes;
 import java.io.Serializable;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -41,6 +45,42 @@ public class RegistroConsultaBean implements Serializable{
     String nombre;
     String fecha;
     Date fechaNacimiento;
+    String consultasId;
+    String consultasFecha;
+    String resumen;
+
+    public Paciente getPa() {
+        return pa;
+    }
+
+    public void setPa(Paciente pa) {
+        this.pa = pa;
+    }
+    Paciente pa;
+    
+    public String getConsultasId() {
+        return consultasId;
+    }
+
+    public void setConsultasId(String consultasId) {
+        this.consultasId = consultasId;
+    }
+
+    public String getConsultasFecha() {
+        return consultasFecha;
+    }
+
+    public void setConsultasFecha(String consultasFecha) {
+        this.consultasFecha = consultasFecha;
+    }
+
+    public String getResumen() {
+        return resumen;
+    }
+
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
+    }
     
     public String getId() {
         return id;
@@ -86,5 +126,17 @@ public class RegistroConsultaBean implements Serializable{
     public ArrayList<Paciente> getPacientes(){
         return pacientes;
     }
-   
+    public void registrarConsulta() throws ParseException, ExcepcionServiciosPacientes{
+        Consulta c= new Consulta();
+        c.setId(Integer.parseInt(consultasId));
+        c.setResumen(resumen);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        java.util.Date date = sdf.parse(consultasFecha);      
+        java.sql.Date sqlDate = new Date(date.getTime());
+        c.setFechayHora(sqlDate);
+        sp.agregarConsultaAPaciente(pa.getId(), pa.getTipo_id(), c);
+    }
+   public Set<Consulta> getConsultas(){
+       return pa.getConsultas();
+   }
 }

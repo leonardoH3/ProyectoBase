@@ -9,9 +9,9 @@
         <br></br>
         <h:form id="vistaPacientes">
             Id: <p:inputText value="#{ConsultasBean.id}"> </p:inputText> <br></br>
-            Type id: <p:inputText value="#{ConsultasBean.idType}"> </p:inputText> <br></br>
-            Name: <p:inputText value="#{ConsultasBean.nombre}"> </p:inputText> <br></br>
-            Birthdate: <p:inputText value="#{ConsultasBean.fecha}"> </p:inputText> <br></br>
+            Tipo id: <p:inputText value="#{ConsultasBean.idType}"> </p:inputText> <br></br>
+            Nombre: <p:inputText value="#{ConsultasBean.nombre}"> </p:inputText> <br></br>
+            Fecha de nacimiento: <p:inputText value="#{ConsultasBean.fecha}"> </p:inputText> <br></br>
             <p:commandButton value="Submit" actionListener="#{ConsultasBean.registrarPaciente()}" update="vistaPacientes" > 
             </p:commandButton >
             <br></br>
@@ -31,7 +31,7 @@
                      <h:outputText value="#{paciente.fechaNacimiento}" />
                  </p:column>
                 <p:column headerText="Cita">
-                     <p:commandButton value="Registrar cita"> 
+                    <p:commandButton value="Registrar cita" action="registroconsultas" actionListener="#{ConsultasBean.setPa(paciente)}"> 
                      </p:commandButton >
                  </p:column>
              </p:dataTable>

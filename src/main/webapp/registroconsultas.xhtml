@@ -2,10 +2,27 @@
 <html xmlns="http://www.w3c.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-    <h:head></h:head>
+    <h:head>Formulario para crear una consulta</h:head>
 
     <h:body>
-        
+        <h:form id="vistaConsultas">
+            Id: <p:inputText value="#{ConsultasBean.consultasId}"> </p:inputText> <br></br>
+            Resumen: <p:inputText value="#{ConsultasBean.resumen}"> </p:inputText> <br></br>
+            Fecha y Hora: <p:inputText value="#{ConsultasBean.consultasFecha}"> </p:inputText> <br></br>
+            <p:commandButton value="Crear cita" actionListener="#{ConsultasBean.registrarConsulta()}" update="vistaConsultas" > 
+            </p:commandButton >
+            <p:dataTable var="consulta" value="#{ConsultasBean.consultas}">
+                <p:column headerText="Id"  sortBy="#{consulta.id}">
+                    <h:outputText value="#{consulta.id}" />
+                 </p:column>
+                 <p:column headerText="Resumen">
+                     <h:outputText value="#{consulta.resumen}" />
+                 </p:column>
+                 <p:column headerText="Fecha y Hora">
+                     <h:outputText value="#{consulta.fechayHora}" />
+                 </p:column>
+             </p:dataTable>
+        </h:form>       
     </h:body>
 
 </html>
