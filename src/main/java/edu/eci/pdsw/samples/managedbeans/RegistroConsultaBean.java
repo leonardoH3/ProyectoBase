@@ -21,6 +21,7 @@ import edu.eci.pdsw.samples.services.ExcepcionServiciosPacientes;
 import edu.eci.pdsw.samples.services.ServiciosPacientes;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
@@ -34,26 +35,55 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class RegistroConsultaBean implements Serializable{
     ServiciosPacientes sp = ServiciosPacientes.getInstance();
+    ArrayList<Paciente> pacientes = sp.getPacientes();
+    String id;
+    String idType;
+    String nombre;
+    String fecha;
     Date fechaNacimiento;
-    List<Paciente> pacientes = sp.getPacientes();
-    public void setFechaNacimiento(String fecha) {
-        String a;
-        String b;
-        String c;
-        String[] x=fecha.split("-");
-        a = x[0];b =x[1];c = x[2];
-        this.fechaNacimiento = new Date(Integer.parseInt(a),Integer.parseInt(b),Integer.parseInt(c));
+    
+    public String getId() {
+        return id;
     }
-    public void registrarPaciente(String id, String tipoId, String nombre, String fecha) throws ExcepcionServiciosPacientes{
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIdType() {
+        return idType;
+    }
+
+    public void setIdType(String idType) {
+        this.idType = idType;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public void registrarPaciente() throws ExcepcionServiciosPacientes{
         String a;String b;String c;
         String[] x=fecha.split("-");
         a = x[0];b =x[1];c = x[2];
         String fechaReal=a + "-" + b + "-" + c;
-        Paciente paciente= new Paciente(Integer.parseInt(id), tipoId, nombre,java.sql.Date.valueOf(fechaReal));
+        Paciente paciente= new Paciente(Integer.parseInt(id), idType, nombre,java.sql.Date.valueOf(fechaReal));
         sp.registrarNuevoPaciente(paciente);
         pacientes=sp.getPacientes();
     }
-    public List<Paciente> getPacientes(){
+    public ArrayList<Paciente> getPacientes(){
         return pacientes;
     }
    

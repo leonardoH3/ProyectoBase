@@ -80,15 +80,15 @@ public class ServiciosPacientesStub extends ServiciosPacientes {
 
     }
 
-    public List<Paciente> getPacientes() {
+    public ArrayList<Paciente> getPacientes() {
         int i;
-        List<Paciente> a = new ArrayList<Paciente>();
+        ArrayList<Paciente> paci = new ArrayList<Paciente>();
         for (Map.Entry<Tupla<Integer, String>, Paciente> entrySet : pacientes.entrySet()) {
             Tupla<Integer, String> key = entrySet.getKey();
             Paciente value = entrySet.getValue();
-            a.add(value);
+            paci.add(value);
         }
-        return a;
+        return paci;
     }
 
 }
