@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -52,7 +53,7 @@ public class JDBCDaoPaciente implements DaoPaciente {
                     }
                     int consultasId = resultado.getInt(3);
                     Date consultasFecha = resultado.getDate(4);
-                    String consultasResumen = resultado.getString(5);               
+                    String consultasResumen = resultado.getString(5);  
                     Consulta c = new Consulta(consultasFecha,consultasResumen);
                     s.add(c);
                     flag=resultado.next();
@@ -117,6 +118,33 @@ public class JDBCDaoPaciente implements DaoPaciente {
             throw new PersistenceException("An error ocurred while loading a product.",ex);
         } */
         throw new RuntimeException("No se ha implementado el metodo 'load' del DAOPAcienteJDBC");
+    }
+    @Override
+    public ArrayList<Paciente> PacientesTotal() throws PersistenceException{
+        Paciente pa=null;
+        ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
+        PreparedStatement ps;
+        ResultSet resultado;
+        String inputString ="select id, tipo_id from PACIENTES";
+        try {
+            ps = con.prepareStatement(inputString);
+            resultado=ps.executeQuery();
+            if(resultado.next()){
+                Boolean flag = true;
+                while(flag){
+                    int pacienteId = resultado.getInt(1);
+                    String pacienteTipoId = resultado.getString(2);               
+                    pa = load(pacienteId,pacienteTipoId);
+                    pacientes.add(pa);
+                    flag=resultado.next();
+                }
+            }
+        } catch (SQLException ex) {
+            throw new PersistenceException("An error ocurred while loading ",ex);
+        }
+        return pacientes;
+    
+    
     }
     
 }
