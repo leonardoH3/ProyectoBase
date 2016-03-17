@@ -78,7 +78,19 @@ public class ServiciosPacientesDao extends ServiciosPacientes{
 
     @Override
     public ArrayList<Paciente> getPacientes() {
+<<<<<<< HEAD
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+=======
+        Paciente pa = null;
+        DaoPaciente dao = daof.getDaoPaciente();
+        ArrayList<Paciente> pacientes= new ArrayList<Paciente>();
+         try {
+             pacientes = dao.PacientesTotal();
+         } catch (PersistenceException ex) {
+             Logger.getLogger(ServiciosPacientesDao.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         return pacientes;
+>>>>>>> 293489e94b0399983f5dda88af4da47eb9097988
     }
     
 }
