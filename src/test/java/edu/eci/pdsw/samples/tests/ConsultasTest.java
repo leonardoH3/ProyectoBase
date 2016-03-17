@@ -61,7 +61,7 @@ public class ConsultasTest {
         */
 
        Paciente pacient = new Paciente(1,"cc","Carlos",new Date(8,8,1994));
-       Consulta  consult = new Consulta(new Date (8,8,2012),"Paciente...");
+       Consulta  consult = new Consulta(1, new Date (8,8,2012),"Paciente...");
        ServiciosPacientesStub consul = new ServiciosPacientesStub();
        consul.registrarNuevoPaciente(pacient);
        consul.agregarConsultaAPaciente(1, "cc", consult);
@@ -74,7 +74,7 @@ public class ConsultasTest {
         */
 
        Paciente pacient = new Paciente(2,"TI","Andres",new Date(10,10,2012));
-       Consulta  consult = new Consulta(new Date (10,10,12),"Paciente Andres");
+       Consulta  consult = new Consulta(1, new Date (10,10,12),"Paciente Andres");
        ServiciosPacientesStub consul = new ServiciosPacientesStub();
        consul.agregarConsultaAPaciente(2, "TL", consult);
        Assert.assertEquals("El paciente no se encuentra  o no existe","Paciente Andres",consul.consultarPaciente(2, "TI").getConsultas().contains(consult));    
@@ -86,7 +86,7 @@ public class ConsultasTest {
         */
 
        Paciente pacient = new Paciente(2,"CC","Andres",new Date(10,10,2012));
-       Consulta  consult = new Consulta(new Date (10,10,12),"Paciente Andres");
+       Consulta  consult = new Consulta(1, new Date (10,10,12),"Paciente Andres");
        ServiciosPacientesStub consul = new ServiciosPacientesStub();
        consul.agregarConsultaAPaciente(2, "TL", consult);
        Assert.assertEquals("El IdPaciente y el tipoId no concuerda con el paciente","Paciente Andres",consul.consultarPaciente(2, "TI").getConsultas().contains(consult));
