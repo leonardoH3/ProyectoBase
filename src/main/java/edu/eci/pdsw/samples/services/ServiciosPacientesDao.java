@@ -8,6 +8,8 @@ package edu.eci.pdsw.samples.services;
 import edu.eci.pdsw.samples.entities.Consulta;
 import edu.eci.pdsw.samples.entities.Paciente;
 import edu.eci.pdsw.samples.persistence.DaoFactory;
+import edu.eci.pdsw.samples.persistence.DaoPaciente;
+import edu.eci.pdsw.samples.persistence.PersistenceException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -35,7 +37,14 @@ public class ServiciosPacientesDao extends ServiciosPacientes{
     
     }
     public Paciente consultarPaciente(int idPaciente, String tipoid) throws ExcepcionServiciosPacientes {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Paciente pa = null;
+        DaoPaciente dao = daof.getDaoPaciente();
+         try {
+             pa = dao.load(idPaciente, tipoid);
+         } catch (PersistenceException ex) {
+             Logger.getLogger(ServiciosPacientesDao.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        return pa;
     }
 
     @Override
