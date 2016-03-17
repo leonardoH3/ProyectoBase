@@ -32,8 +32,8 @@ public class Consulta {
 
     
     
-    public Consulta(int id, Date fechayHora, String resumen) {
-        this.id=id;
+    public Consulta(Date fechayHora, String resumen) {
+        this.id=-1;
         this.fechayHora = fechayHora;
         this.resumen = resumen;
     }    

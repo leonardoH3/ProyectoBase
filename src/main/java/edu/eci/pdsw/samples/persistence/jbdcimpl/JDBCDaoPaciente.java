@@ -53,7 +53,7 @@ public class JDBCDaoPaciente implements DaoPaciente {
                     int consultasId = resultado.getInt(3);
                     Date consultasFecha = resultado.getDate(4);
                     String consultasResumen = resultado.getString(5);               
-                    Consulta c = new Consulta(consultasId,consultasFecha,consultasResumen);
+                    Consulta c = new Consulta(consultasFecha,consultasResumen);
                     s.add(c);
                     flag=resultado.next();
                 }
