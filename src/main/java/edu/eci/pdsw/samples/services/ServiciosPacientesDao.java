@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+//save 
 
 /**
  *
@@ -43,23 +44,41 @@ public class ServiciosPacientesDao extends ServiciosPacientes{
              pa = dao.load(idPaciente, tipoid);
          } catch (PersistenceException ex) {
              Logger.getLogger(ServiciosPacientesDao.class.getName()).log(Level.SEVERE, null, ex);
+             
          }
         return pa;
     }
 
     @Override
     public void registrarNuevoPaciente(Paciente p) throws ExcepcionServiciosPacientes {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Paciente pa= null;
+        DaoPaciente dao= daof.getDaoPaciente();
+         try {
+             dao.save(p);
+         } catch (PersistenceException ex) {
+             Logger.getLogger(ServiciosPacientesDao.class.getName()).log(Level.SEVERE, null, ex);
+         }
+     
+        
     }
 
     @Override
     public void agregarConsultaAPaciente(int idPaciente, String tipoid, Consulta c) throws ExcepcionServiciosPacientes {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Paciente pa=null;
+        DaoPaciente dao= daof.getDaoPaciente();
+         try {
+         pa= dao.load(idPaciente, tipoid);
+         } catch (PersistenceException ex) {
+             Logger.getLogger(ServiciosPacientesDao.class.getName()).log(Level.SEVERE, null, ex);
+         }
+       
     }
 
     @Override
     public ArrayList<Paciente> getPacientes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
