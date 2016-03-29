@@ -29,7 +29,7 @@ public class ServiciosPacientesDao extends ServiciosPacientes{
     public ServiciosPacientesDao(){
          try {
              InputStream input = null;
-             input = getClass().getClassLoader().getResource("applicationconfig_test.properties").openStream();
+             input = getClass().getClassLoader().getResource("applicationconfig.properties").openStream();
              Properties properties=new Properties();
              properties.load(input);
              daof=DaoFactory.getInstance(properties);

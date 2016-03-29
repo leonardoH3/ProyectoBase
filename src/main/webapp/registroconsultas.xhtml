@@ -6,7 +6,6 @@
 
     <h:body>
         <h:form id="vistaConsultas">
-            Id: <p:inputText value="#{ConsultasBean.consultasId}"> </p:inputText> <br></br>
             Resumen: <p:inputText value="#{ConsultasBean.resumen}"> </p:inputText> <br></br>
             Fecha y Hora: <p:inputText value="#{ConsultasBean.consultasFecha}"> </p:inputText> <br></br>
             <p:commandButton value="Crear cita" actionListener="#{ConsultasBean.registrarConsulta()}" update="vistaConsultas" > 

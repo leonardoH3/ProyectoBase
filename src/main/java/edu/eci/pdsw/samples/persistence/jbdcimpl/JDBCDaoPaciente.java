@@ -71,7 +71,7 @@ public class JDBCDaoPaciente implements DaoPaciente {
         PreparedStatement ps;
         ResultSet resultado;
         String inputString ="INSERT INTO PACIENTES VALUES (?,?,?,?)";
-        String inputStringTwo = "INSERT INTO CONSULTAS VALUES(?,?,?,?,?)";
+        String inputStringTwo = "INSERT INTO CONSULTAS (fecha_y_Hora, resumen, PACIENTES_id, PACIENTES_tipo_id) VALUES(?,?,?,?)";
         String inputStringThree = "SELECT nombre FROM PACIENTES WHERE id=? AND tipo_id=?";
         try {
             ps = con.prepareStatement(inputStringThree);
@@ -112,19 +112,12 @@ public class JDBCDaoPaciente implements DaoPaciente {
     @Override
     public void update(Paciente p) throws PersistenceException {
         PreparedStatement ps;
-        String inputString ="INSERT INTO PACIENTES VALUES (?,?,?,?)";
-        String inputStringTwo = "INSERT INTO CONSULTAS VALUES(?,?,?,?,?)";
-        String inputStringThree = "DELETE CONSTRAINT FROM PACIENTES WHERE id = ? AND tipo_id = ?";
+        String inputStringTwo = "INSERT INTO CONSULTAS (fecha_y_Hora, resumen, PACIENTES_id, PACIENTES_tipo_id) VALUES (?,?,?,?)";
+        String inputStringThree = "DELETE FROM CONSULTAS WHERE PACIENTES_id = ? AND PACIENTES_tipo_id = ?";
         try {
             ps = con.prepareStatement(inputStringThree);
             ps.setInt(1, p.getId());
             ps.setString(2, p.getTipo_id());
-            ps.execute();
-            ps = con.prepareStatement(inputString);
-            ps.setInt(1, p.getId());
-            ps.setString(2, p.getTipo_id());
-            ps.setString(3, p.getNombre());
-            ps.setDate(4, p.getFechaNacimiento());
             ps.execute();
             if(p.getConsultas().isEmpty()){
                 
@@ -132,11 +125,10 @@ public class JDBCDaoPaciente implements DaoPaciente {
             else{
                 for(Consulta c:p.getConsultas()){
                     ps = con.prepareStatement(inputStringTwo);
-                    ps.setInt(1,c.getId());
-                    ps.setDate(2,c.getFechayHora());
-                    ps.setString(3,c.getResumen());
-                    ps.setInt(4,p.getId());
-                    ps.setString(5,p.getTipo_id());
+                    ps.setDate(1,c.getFechayHora());
+                    ps.setString(2,c.getResumen());
+                    ps.setInt(3,p.getId());
+                    ps.setString(4,p.getTipo_id());
                     ps.execute(); 
                 }
             }

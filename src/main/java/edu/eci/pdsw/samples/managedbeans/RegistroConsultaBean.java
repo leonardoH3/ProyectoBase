@@ -128,7 +128,6 @@ public class RegistroConsultaBean implements Serializable{
     }
     public void registrarConsulta() throws ParseException, ExcepcionServiciosPacientes{
         Consulta c= new Consulta();
-        c.setId(Integer.parseInt(consultasId));
         c.setResumen(resumen);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         java.util.Date date = sdf.parse(consultasFecha);      
