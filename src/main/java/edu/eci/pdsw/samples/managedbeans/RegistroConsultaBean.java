@@ -38,7 +38,7 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name="ConsultasBean")
 @SessionScoped
 public class RegistroConsultaBean implements Serializable{
-    ServiciosPacientes sp = ServiciosPacientes.getInstance("stub");
+    ServiciosPacientes sp = ServiciosPacientes.getInstance("dao");
     ArrayList<Paciente> pacientes = sp.getPacientes();
     String id;
     String idType;

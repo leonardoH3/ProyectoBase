@@ -60,6 +60,7 @@ public class ServiciosPacientesDao extends ServiciosPacientes{
              daof.beginSession();
              dao = daof.getDaoPaciente();
              dao.save(p);
+             daof.commitTransaction();
              daof.endSession();
          } catch (PersistenceException ex) {
              Logger.getLogger(ServiciosPacientesDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,6 +81,7 @@ public class ServiciosPacientesDao extends ServiciosPacientes{
          consultas.add(c);
          pa.setConsultas(consultas);
          dao.update(pa);
+         daof.commitTransaction();
          daof.endSession();
          } catch (PersistenceException ex) {
              Logger.getLogger(ServiciosPacientesDao.class.getName()).log(Level.SEVERE, null, ex);
