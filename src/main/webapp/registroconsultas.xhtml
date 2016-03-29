@@ -8,9 +8,9 @@
         <h:form id="vistaConsultas">
             Resumen: <p:inputText value="#{ConsultasBean.resumen}"> </p:inputText> <br></br>
             Fecha y Hora: <p:inputText value="#{ConsultasBean.consultasFecha}"> </p:inputText> <br></br>
-            <p:commandButton value="Crear cita" actionListener="#{ConsultasBean.registrarConsulta()}" update="vistaConsultas" > 
+            <p:commandButton value="Crear cita" actionListener="#{ConsultasBean.registrarConsulta()}" update="al" > 
             </p:commandButton >
-            <p:dataTable var="consulta" value="#{ConsultasBean.consultas}">
+            <p:dataTable id = "al" var="consulta" value="#{ConsultasBean.consultas}">
                 <p:column headerText="Id"  sortBy="#{consulta.id}">
                     <h:outputText value="#{consulta.id}" />
                  </p:column>
