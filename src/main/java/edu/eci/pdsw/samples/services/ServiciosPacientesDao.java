@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 //save 
@@ -23,8 +24,8 @@ import java.util.logging.Logger;
  * @author 2107262
  */
 public class ServiciosPacientesDao extends ServiciosPacientes{
-     DaoFactory daof =null;
-
+     DaoFactory daof = null;
+     DaoPaciente dao = null;
     public ServiciosPacientesDao(){
          try {
              InputStream input = null;
@@ -39,9 +40,11 @@ public class ServiciosPacientesDao extends ServiciosPacientes{
     }
     public Paciente consultarPaciente(int idPaciente, String tipoid) throws ExcepcionServiciosPacientes {
         Paciente pa = null;
-        DaoPaciente dao = daof.getDaoPaciente();
          try {
+             daof.beginSession();
+             dao = daof.getDaoPaciente();
              pa = dao.load(idPaciente, tipoid);
+             daof.endSession();
          } catch (PersistenceException ex) {
              Logger.getLogger(ServiciosPacientesDao.class.getName()).log(Level.SEVERE, null, ex);
              
@@ -53,9 +56,11 @@ public class ServiciosPacientesDao extends ServiciosPacientes{
     public void registrarNuevoPaciente(Paciente p) throws ExcepcionServiciosPacientes {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         Paciente pa= null;
-        DaoPaciente dao= daof.getDaoPaciente();
          try {
+             daof.beginSession();
+             dao = daof.getDaoPaciente();
              dao.save(p);
+             daof.endSession();
          } catch (PersistenceException ex) {
              Logger.getLogger(ServiciosPacientesDao.class.getName()).log(Level.SEVERE, null, ex);
          }
@@ -67,9 +72,15 @@ public class ServiciosPacientesDao extends ServiciosPacientes{
     public void agregarConsultaAPaciente(int idPaciente, String tipoid, Consulta c) throws ExcepcionServiciosPacientes {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         Paciente pa=null;
-        DaoPaciente dao= daof.getDaoPaciente();
          try {
+         daof.beginSession();
+         dao = daof.getDaoPaciente();
          pa= dao.load(idPaciente, tipoid);
+         Set<Consulta> consultas= pa.getConsultas();
+         consultas.add(c);
+         pa.setConsultas(consultas);
+         dao.update(pa);
+         daof.endSession();
          } catch (PersistenceException ex) {
              Logger.getLogger(ServiciosPacientesDao.class.getName()).log(Level.SEVERE, null, ex);
          }
@@ -78,12 +89,12 @@ public class ServiciosPacientesDao extends ServiciosPacientes{
 
     @Override
     public ArrayList<Paciente> getPacientes() {
-
-        Paciente pa = null;
-        DaoPaciente dao = daof.getDaoPaciente();
         ArrayList<Paciente> pacientes= new ArrayList<Paciente>();
          try {
+             daof.beginSession();
+             dao = daof.getDaoPaciente();
              pacientes = dao.PacientesTotal();
+             daof.endSession();
          } catch (PersistenceException ex) {
              Logger.getLogger(ServiciosPacientesDao.class.getName()).log(Level.SEVERE, null, ex);
          }

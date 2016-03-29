@@ -30,14 +30,17 @@ public abstract class ServiciosPacientes {
     
     
     private static ServiciosPacientes instance=new ServiciosPacientesStub();
-    
+    private static ServiciosPacientes instance1=new ServiciosPacientesDao();
     
     protected ServiciosPacientes(){        
-
     }
-    
-    public static ServiciosPacientes getInstance() throws RuntimeException{        
-        return instance;
+    public static ServiciosPacientes getInstance(String modo) throws RuntimeException{    
+        if(modo.equals("dao")){
+            return instance1;
+        }
+        else{
+            return instance;   
+        }           
     }
 
     /**

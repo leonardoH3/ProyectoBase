@@ -44,6 +44,7 @@ public class PacientesTest {
      * 1-El paciente ya se encuentra registrado
      * 2-El paciente no se encuentra registrado
      */
+    
     public void registroPacienteTest() throws ExcepcionServiciosPacientes{
             //Se esta haciendo el test de la clase de equivalencia 2
             Paciente pac=new Paciente(1, "CC", "Eduardo", new Date(5,5,1995));
@@ -57,5 +58,5 @@ public class PacientesTest {
             ServiciosPacientesStub a=new ServiciosPacientesStub();
             Assert.assertEquals("El paciente no se añadio correcamente","Eduardo",a.consultarPaciente(1, "CC").getNombre());
         }
-           
+       
 }

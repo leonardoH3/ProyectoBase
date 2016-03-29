@@ -36,7 +36,7 @@ public class JDBCDaoFactory extends DaoFactory{
             String user=appProperties.getProperty("user");
             String pwd=appProperties.getProperty("pwd");
                         
-        try {
+        try {http://localhost:8080/faces/registropacientes.xhtml
             Class.forName(driver);
             Connection _con=DriverManager.getConnection(url,user,pwd);
             _con.setAutoCommit(false);

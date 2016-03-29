@@ -112,12 +112,37 @@ public class JDBCDaoPaciente implements DaoPaciente {
     @Override
     public void update(Paciente p) throws PersistenceException {
         PreparedStatement ps;
-        /*try {
-            
+        String inputString ="INSERT INTO PACIENTES VALUES (?,?,?,?)";
+        String inputStringTwo = "INSERT INTO CONSULTAS VALUES(?,?,?,?,?)";
+        String inputStringThree = "DELETE CONSTRAINT FROM PACIENTES WHERE id = ? AND tipo_id = ?";
+        try {
+            ps = con.prepareStatement(inputStringThree);
+            ps.setInt(1, p.getId());
+            ps.setString(2, p.getTipo_id());
+            ps.execute();
+            ps = con.prepareStatement(inputString);
+            ps.setInt(1, p.getId());
+            ps.setString(2, p.getTipo_id());
+            ps.setString(3, p.getNombre());
+            ps.setDate(4, p.getFechaNacimiento());
+            ps.execute();
+            if(p.getConsultas().isEmpty()){
+                
+            }   
+            else{
+                for(Consulta c:p.getConsultas()){
+                    ps = con.prepareStatement(inputStringTwo);
+                    ps.setInt(1,c.getId());
+                    ps.setDate(2,c.getFechayHora());
+                    ps.setString(3,c.getResumen());
+                    ps.setInt(4,p.getId());
+                    ps.setString(5,p.getTipo_id());
+                    ps.execute(); 
+                }
+            }
         } catch (SQLException ex) {
-            throw new PersistenceException("An error ocurred while loading a product.",ex);
-        } */
-        throw new RuntimeException("No se ha implementado el metodo 'load' del DAOPAcienteJDBC");
+            Logger.getLogger(JDBCDaoPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     @Override
     public ArrayList<Paciente> PacientesTotal() throws PersistenceException{
@@ -129,16 +154,13 @@ public class JDBCDaoPaciente implements DaoPaciente {
         try {
             ps = con.prepareStatement(inputString);
             resultado=ps.executeQuery();
-            if(resultado.next()){
-                Boolean flag = true;
-                while(flag){
+            while(resultado.next()){
                     int pacienteId = resultado.getInt(1);
                     String pacienteTipoId = resultado.getString(2);               
                     pa = load(pacienteId,pacienteTipoId);
                     pacientes.add(pa);
-                    flag=resultado.next();
+
                 }
-            }
         } catch (SQLException ex) {
             throw new PersistenceException("An error ocurred while loading ",ex);
         }
