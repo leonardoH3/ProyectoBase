@@ -18,8 +18,11 @@ package edu.eci.pdsw.samples.tests;
 
 import edu.eci.pdsw.samples.entities.Paciente;
 import edu.eci.pdsw.samples.services.ExcepcionServiciosPacientes;
+import edu.eci.pdsw.samples.services.ServiciosPacientes;
 import edu.eci.pdsw.samples.services.ServiciosPacientesStub;
 import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,17 +48,25 @@ public class PacientesTest {
      * 2-El paciente no se encuentra registrado
      */
     
-    public void registroPacienteTest() throws ExcepcionServiciosPacientes{
-            //Se esta haciendo el test de la clase de equivalencia 2
+    public void registroPacienteTest(){
+        try {
+            //Se esta haciendo el test de la clase de equivalencia 1 con stub
             Paciente pac=new Paciente(1, "CC", "Eduardo", new Date(5,5,1995));
-            ServiciosPacientesStub a=new ServiciosPacientesStub();
+            ServiciosPacientes a=ServiciosPacientes.getInstance("stub");
             a.registrarNuevoPaciente(pac);
-            Assert.assertEquals("El paciente no se añadio correcamente",a.consultarPaciente(1, "CC").getNombre(),"Eduardo");
+            a.registrarNuevoPaciente(pac);
+            Assert.fail("El paciente no se añadio correcamente");
+        } catch (ExcepcionServiciosPacientes ex) {
+            Assert.assertEquals("Mal trabajo",ex.getMessage(),"Ya se encuentra registrado el paciente");
+            
         }
+        }
+    @Test
     public void registroPacienteTest1() throws ExcepcionServiciosPacientes{
-            //Se esta haciendo el test de la clase de equivalencia 1
+            //Se esta haciendo el test de la clase de equivalencia 2 con stub
             Paciente pac=new Paciente(1, "CC", "Eduardo", new Date(5,5,1995));
-            ServiciosPacientesStub a=new ServiciosPacientesStub();
+            ServiciosPacientes a=ServiciosPacientes.getInstance("stub");
+            a.registrarNuevoPaciente(pac);
             Assert.assertEquals("El paciente no se añadio correcamente","Eduardo",a.consultarPaciente(1, "CC").getNombre());
         }
        
